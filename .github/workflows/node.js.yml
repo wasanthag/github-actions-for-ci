@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: npm install and build webpack
@@ -15,23 +13,19 @@ jobs:
           npm run build
       - uses: actions/upload-artifact@main
         with:
-          name: webpack artifacts
+          name: webpack-artifacts
           path: public/    
-
   test:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         os: [ubuntu-latest, windows-2016]
         node-version: [12.x, 14.x]
-
     steps:
     - name: Download math result for job 1
       uses: actions/download-artifact@v2
       with:
-          name: webpack artifacts  
+          name: webpack-artifacts  
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
